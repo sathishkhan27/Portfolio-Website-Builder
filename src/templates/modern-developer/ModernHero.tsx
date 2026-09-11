@@ -60,7 +60,10 @@ export const ModernHero: React.FC<ModernHeroProps> = ({ data, theme }) => {
 
             {/* Name & Headline */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              <h1
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight"
+                style={{ color: theme.colors.text }}
+              >
                 Hi, I'm{' '}
                 <span
                   className="bg-clip-text text-transparent"
@@ -71,24 +74,38 @@ export const ModernHero: React.FC<ModernHeroProps> = ({ data, theme }) => {
                   {personal.fullName}
                 </span>
               </h1>
-              <p className="text-xl sm:text-2xl font-semibold text-slate-200 tracking-tight">
+              <p className="text-xl sm:text-2xl font-semibold tracking-tight" style={{ color: theme.colors.text }}>
                 {personal.headline}
               </p>
             </div>
 
             {/* Tagline / Bio */}
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg max-w-2xl leading-relaxed opacity-80" style={{ color: theme.colors.text }}>
               {personal.tagline}
             </p>
 
             {/* Metadata Chips: Location & Experience */}
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-              <div className="inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <MapPin size={14} className="text-indigo-400" />
+            <div className="flex flex-wrap items-center gap-4 text-xs">
+              <div
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border"
+                style={{
+                  backgroundColor: theme.colors.surface,
+                  borderColor: theme.colors.border,
+                  color: theme.colors.text
+                }}
+              >
+                <MapPin size={14} style={{ color: theme.colors.primary }} />
                 <span>{personal.location}</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <Briefcase size={14} className="text-cyan-400" />
+              <div
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border"
+                style={{
+                  backgroundColor: theme.colors.surface,
+                  borderColor: theme.colors.border,
+                  color: theme.colors.text
+                }}
+              >
+                <Briefcase size={14} style={{ color: theme.colors.secondary }} />
                 <span>{personal.yearsOfExperience}+ Years Experience</span>
               </div>
             </div>

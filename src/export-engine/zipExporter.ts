@@ -18,6 +18,18 @@ export async function exportPortfolioAsZip(
     zip.file(filePath, content);
   });
 
+  // Include logo in exported project's public directory
+  try {
+    const logoRes = await fetch('/logo.png');
+    if (logoRes.ok) {
+      const logoBlob = await logoRes.blob();
+      zip.file('public/logo.png', logoBlob);
+      zip.file('public/favicon.png', logoBlob);
+    }
+  } catch {
+    // Fallback gracefully if running in environment without network/fetch
+  }
+
   // Generate ZIP blob
   const zipBlob = await zip.generateAsync(
     {

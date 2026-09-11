@@ -8,12 +8,12 @@ import { Palette, Moon, Sun, Sparkles, Sliders, Type } from 'lucide-react';
 import { BorderRadiusOption, ButtonStyle } from '../types/theme';
 
 export const ThemeCustomizer: React.FC = () => {
-  const { theme, setTheme, updateThemeColor, updateThemeProperty } = usePortfolioStore();
+  const { theme, setTheme, toggleThemeMode, updateThemeColor, updateThemeProperty } = usePortfolioStore();
 
   const handleApplyPreset = (presetKey: string) => {
     const selectedPreset = themePresets[presetKey];
     if (selectedPreset) {
-      setTheme({ ...selectedPreset });
+      setTheme(JSON.parse(JSON.stringify(selectedPreset)));
     }
   };
 
@@ -112,7 +112,7 @@ export const ThemeCustomizer: React.FC = () => {
         </div>
         <button
           type="button"
-          onClick={() => updateThemeProperty('mode', theme.mode === 'dark' ? 'light' : 'dark')}
+          onClick={() => toggleThemeMode()}
           className="px-3 py-1.5 rounded-lg bg-slate-800 text-xs font-semibold text-white hover:bg-slate-700 cursor-pointer transition-colors"
         >
           Switch to {theme.mode === 'dark' ? 'Light' : 'Dark'}

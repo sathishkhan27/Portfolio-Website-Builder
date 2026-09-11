@@ -35,35 +35,41 @@ export const ModernProjects: React.FC<ModernProjectsProps> = ({ data, theme }) =
             >
               Selected Work & Open Source
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: theme.colors.text }}>
               Featured Projects
             </h2>
-            <p className="text-slate-400 text-base max-w-xl">
+            <p className="text-base max-w-xl opacity-80" style={{ color: theme.colors.text }}>
               Production architectures, developer infrastructure, and open-source packages engineered for scale.
             </p>
           </div>
 
           {/* Filter Buttons */}
-          <div className="flex items-center gap-2 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+          <div
+            className="flex items-center gap-2 p-1 rounded-xl border"
+            style={{
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border
+            }}
+          >
             <button
               onClick={() => setFilter('all')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
-                filter === 'all'
-                  ? 'bg-slate-800 text-white font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className="px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer"
+              style={{
+                backgroundColor: filter === 'all' ? theme.colors.primary : 'transparent',
+                color: filter === 'all' ? '#ffffff' : theme.colors.textMuted
+              }}
             >
               All Projects ({projects.length})
             </button>
             <button
               onClick={() => setFilter('featured')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
-                filter === 'featured'
-                  ? 'bg-slate-800 text-white font-semibold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
+              className="px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer"
+              style={{
+                backgroundColor: filter === 'featured' ? theme.colors.primary : 'transparent',
+                color: filter === 'featured' ? '#ffffff' : theme.colors.textMuted
+              }}
             >
-              Featured ({projects.filter((p) => p.featured).length})
+              Featured Only
             </button>
           </div>
         </div>
@@ -73,56 +79,45 @@ export const ModernProjects: React.FC<ModernProjectsProps> = ({ data, theme }) =
           {displayedProjects.map((project) => (
             <div
               key={project.id}
-              className="rounded-2xl border backdrop-blur-md overflow-hidden flex flex-col justify-between transition-all hover:border-slate-700 hover:-translate-y-1 group"
+              className="group rounded-2xl border backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between"
               style={{
                 backgroundColor: 'var(--theme-card)',
                 borderColor: 'var(--theme-border)'
               }}
             >
               <div>
-                {/* Thumbnail Image / Visual Header */}
-                {project.imageUrl ? (
-                  <div className="relative h-48 w-full overflow-hidden bg-slate-950">
+                {/* Visual Thumbnail / Preview Placeholder */}
+                <div className="relative h-48 w-full overflow-hidden bg-slate-900 border-b border-slate-800/80 flex items-center justify-center">
+                  {project.imageUrl ? (
                     <img
                       src={project.imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-                    {project.featured && (
-                      <span
-                        className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-bold text-white shadow-lg flex items-center gap-1"
-                        style={{ backgroundColor: theme.colors.primary }}
-                      >
-                        <Star size={11} fill="currentColor" />
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <div
-                    className="h-32 w-full p-4 flex flex-col justify-between"
-                    style={{
-                      background: `linear-gradient(135deg, ${theme.colors.primary}20, ${theme.colors.secondary}15)`
-                    }}
-                  >
-                    {project.featured && (
-                      <span
-                        className="self-end px-2.5 py-1 rounded-full text-[11px] font-bold text-white shadow-sm flex items-center gap-1"
-                        style={{ backgroundColor: theme.colors.primary }}
-                      >
-                        <Star size={11} fill="currentColor" />
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                )}
+                  ) : (
+                    <div className="text-center p-4 text-xs font-mono opacity-50">
+                      💻 {project.title}
+                    </div>
+                  )}
+                  {project.featured && (
+                    <span
+                      className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-bold text-white shadow-sm flex items-center gap-1"
+                      style={{ backgroundColor: theme.colors.primary }}
+                    >
+                      <Sparkles size={11} />
+                      <span>Featured</span>
+                    </span>
+                  )}
+                </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-3">
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-indigo-300 transition-colors">
+                      <h3
+                        className="text-lg font-bold tracking-tight transition-colors"
+                        style={{ color: theme.colors.text }}
+                      >
                         {project.title}
                       </h3>
                       {project.liveUrl && (

@@ -22,7 +22,7 @@ export const templateRegistry: Record<string, {
       description: 'Inspired by modern product designer & creator portfolios. Features floating interactive badges, a 2-column narrative timeline, and a Design & Dev Toolbox grid.',
       category: 'Designer',
       badge: 'Popular',
-      author: 'Solo Portfolio Design',
+      author: 'WB Studio Design',
       supportedSections: ['hero', 'about', 'experience', 'education', 'skills', 'projects', 'contact'],
       defaultThemeId: 'nordic-frost',
       features: [
@@ -43,7 +43,7 @@ export const templateRegistry: Record<string, {
       description: 'High-fashion creative director portfolio featuring stark monochrome with electric cobalt Klein blue, Pantone swatches, organic pill cloud, and layered project cards.',
       category: 'Creative',
       badge: 'Editorial',
-      author: 'Solo Portfolio Avant',
+      author: 'WB Studio Avant',
       supportedSections: ['hero', 'skills', 'projects', 'about', 'contact'],
       defaultThemeId: 'cyberpunk',
       features: [
@@ -64,7 +64,7 @@ export const templateRegistry: Record<string, {
       description: 'Electric dark theme featuring a vibrant purple/magenta neon halo portrait, gold metrics ribbon (325+ Clients, 25M+ Revenue), and stacked horizontal case study cards.',
       category: 'Designer',
       badge: 'Neon Glow',
-      author: 'Solo Portfolio Neon',
+      author: 'WB Studio Neon',
       supportedSections: ['hero', 'services', 'projects', 'about', 'contact'],
       defaultThemeId: 'cyberpunk',
       features: [
@@ -85,7 +85,7 @@ export const templateRegistry: Record<string, {
       description: 'Distinctive warm clay aesthetic featuring stylized 3D avatars with speech bubbles ("Want to know about me?"), numbered service cards (01 UX Strategy...), and a 6-step process flow.',
       category: 'Creative',
       badge: 'Character',
-      author: 'Solo Portfolio Clay',
+      author: 'WB Studio Clay',
       supportedSections: ['hero', 'about', 'services', 'projects', 'contact'],
       defaultThemeId: 'obsidian-gold',
       features: [
@@ -106,7 +106,7 @@ export const templateRegistry: Record<string, {
       description: 'Bold agency & studio template featuring fiery crimson accents, giant typography with highlighted keywords, 4-stat metrics counter with dot matrices, and glassmorphic showcases.',
       category: 'Creative',
       badge: 'High Impact',
-      author: 'Solo Portfolio Creative',
+      author: 'WB Studio Creative',
       supportedSections: ['hero', 'services', 'projects', 'about', 'experience', 'contact'],
       defaultThemeId: 'cyberpunk',
       features: [
@@ -127,7 +127,7 @@ export const templateRegistry: Record<string, {
       description: 'High-contrast pitch black (#000000) developer portfolio. Highlights a floating pill navbar, monochrome circular portrait, framed technology brand badges, and categorized project tabs.',
       category: 'Developer',
       badge: 'Minimal Noir',
-      author: 'Solo Portfolio Dark',
+      author: 'WB Studio Dark',
       supportedSections: ['hero', 'about', 'education', 'certifications', 'skills', 'projects', 'contact'],
       defaultThemeId: 'obsidian-gold',
       features: [
@@ -148,7 +148,7 @@ export const templateRegistry: Record<string, {
       description: 'Futuristic technical portfolio featuring subtle matrix grid lines, live "available for work" status pill, bento project showcase, milestone achievements, and technical reflections.',
       category: 'Developer',
       badge: 'Futuristic',
-      author: 'Solo Portfolio Cyber',
+      author: 'WB Studio Cyber',
       supportedSections: ['hero', 'projects', 'achievements', 'about', 'skills', 'contact'],
       defaultThemeId: 'cyberpunk',
       features: [
@@ -169,7 +169,7 @@ export const templateRegistry: Record<string, {
       description: 'Engineered specifically for Senior Developers, Staff Engineers, Tech Leads, and AI Architects. Includes code snippets, system metric badges, and interactive project previews.',
       category: 'Developer',
       badge: 'Flagship',
-      author: 'Solo Portfolio Core',
+      author: 'WB Studio Core',
       supportedSections: ['hero', 'about', 'skills', 'experience', 'projects', 'services', 'education', 'certifications', 'achievements', 'contact'],
       defaultThemeId: 'cyberpunk',
       features: [
@@ -190,7 +190,7 @@ export const templateRegistry: Record<string, {
       tagline: 'High-contrast monochrome, elegant typography & concise reading flow',
       description: 'A focused, distraction-free typographic template inspired by modern engineering publications and clean portfolios.',
       category: 'Minimalist',
-      author: 'Solo Portfolio Core',
+      author: 'WB Studio Core',
       supportedSections: ['hero', 'about', 'skills', 'experience', 'projects', 'contact'],
       defaultThemeId: 'obsidian-gold',
       features: [

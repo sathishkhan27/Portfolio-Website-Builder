@@ -57,40 +57,57 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
 
   return (
     <div
-      className="min-h-screen font-sans bg-[#fafafa] text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 transition-colors"
+      className="min-h-screen font-sans transition-colors"
       style={{
+        backgroundColor: theme.colors.background,
+        color: theme.colors.text,
         fontFamily: theme.typography.bodyFont || "'Plus Jakarta Sans', sans-serif"
       }}
     >
       {/* 1. Header Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100">
+      <header
+        className="sticky top-0 z-40 backdrop-blur-md border-b"
+        style={{
+          backgroundColor: `${theme.colors.background}cc`,
+          borderColor: theme.colors.border
+        }}
+      >
         <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="#hero" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm tracking-tight group-hover:scale-105 transition-transform">
+            <div
+              className="w-8 h-8 rounded-full text-white flex items-center justify-center font-bold text-sm tracking-tight group-hover:scale-105 transition-transform"
+              style={{ backgroundColor: theme.colors.primary }}
+            >
               {personal.fullName.charAt(0)}
             </div>
-            <span className="font-bold text-slate-900 tracking-tight text-base">
-              {personal.fullName.split(' ')[0]}<span className="text-indigo-600">.</span>
+            <span className="font-bold tracking-tight text-base" style={{ color: theme.colors.text }}>
+              {personal.fullName.split(' ')[0]}<span style={{ color: theme.colors.primary }}>.</span>
             </span>
           </a>
 
           {/* Centered Navigation Pills */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/60 shadow-xs">
-            <a href="#hero" className="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition-all">
+          <nav
+            className="hidden md:flex items-center gap-1 p-1.5 rounded-full border shadow-xs"
+            style={{
+              backgroundColor: theme.colors.surface || 'rgba(255,255,255,0.05)',
+              borderColor: theme.colors.border
+            }}
+          >
+            <a href="#hero" className="px-4 py-1.5 rounded-full text-xs font-semibold hover:opacity-80 transition-all">
               Home
             </a>
             {isEnabled('projects') && (
-              <a href="#portfolio" className="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition-all">
+              <a href="#portfolio" className="px-4 py-1.5 rounded-full text-xs font-semibold hover:opacity-80 transition-all">
                 Portfolio
               </a>
             )}
             {isEnabled('about') && (
-              <a href="#journey" className="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition-all">
+              <a href="#journey" className="px-4 py-1.5 rounded-full text-xs font-semibold hover:opacity-80 transition-all">
                 Journey
               </a>
             )}
             {isEnabled('contact') && (
-              <a href="#contact" className="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-white transition-all">
+              <a href="#contact" className="px-4 py-1.5 rounded-full text-xs font-semibold hover:opacity-80 transition-all">
                 Contact
               </a>
             )}
@@ -99,7 +116,8 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
           {/* Right Action */}
           <a
             href={`mailto:${contact.email || personal.email}`}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-indigo-600 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-xs font-semibold transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            style={{ backgroundColor: theme.colors.primary }}
           >
             <Mail size={13} />
             <span>Get in Touch</span>
@@ -111,11 +129,19 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
       {isEnabled('hero') && (
         <section id="hero" className="pt-16 pb-20 px-6 max-w-5xl mx-auto text-center relative overflow-hidden">
           {/* Ambient soft glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none -z-10" />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl pointer-events-none -z-10"
+            style={{ backgroundColor: `${theme.colors.primary}20` }}
+          />
 
           {/* Center Avatar with Interactive Floating Tags */}
           <div className="relative inline-block mb-10">
-            <div className="relative w-36 h-36 md:w-44 md:h-44 mx-auto rounded-full p-1.5 bg-gradient-to-tr from-indigo-500/20 via-slate-200 to-indigo-500/40 shadow-xl">
+            <div
+              className="relative w-36 h-36 md:w-44 md:h-44 mx-auto rounded-full p-1.5 shadow-xl"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`
+              }}
+            >
               {personal.avatarUrl ? (
                 <img
                   src={personal.avatarUrl}
@@ -160,21 +186,27 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 max-w-3xl mx-auto leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 max-w-3xl mx-auto leading-tight" style={{ color: theme.colors.text }}>
             Hello, I'm{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-indigo-900 to-indigo-600">
+            <span
+              className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${theme.colors.text}, ${theme.colors.primary})`
+              }}
+            >
               {personal.fullName}
             </span>
           </h1>
 
-          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
             {personal.tagline || personal.headline}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href={`mailto:${contact.email || personal.email}`}
-              className="px-7 py-3.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-indigo-600 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2"
+              className="px-7 py-3.5 rounded-full text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2"
+              style={{ backgroundColor: theme.colors.primary }}
             >
               <Mail size={15} />
               <span>Contact Me</span>
@@ -182,7 +214,12 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
             {isEnabled('projects') && (
               <a
                 href="#portfolio"
-                className="px-7 py-3.5 rounded-full bg-white text-slate-800 text-sm font-semibold border border-slate-200 hover:bg-slate-50 transition-all shadow-xs flex items-center gap-2"
+                className="px-7 py-3.5 rounded-full text-sm font-semibold border hover:opacity-80 transition-all shadow-xs flex items-center gap-2"
+                style={{
+                  backgroundColor: theme.colors.surface || 'rgba(255,255,255,0.05)',
+                  color: theme.colors.text,
+                  borderColor: theme.colors.border
+                }}
               >
                 <span>View Portfolio</span>
                 <ChevronRight size={15} />
@@ -197,22 +234,22 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
 
         {/* 3. My Journey (About) */}
         {isEnabled('about') && (
-          <section id="journey" className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-8 border-t border-slate-200/70">
+          <section id="journey" className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-8 border-t" style={{ borderColor: theme.colors.border }}>
             <div className="md:col-span-4">
               <div className="sticky top-28">
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Background</span>
-                <h2 className="text-3xl font-extrabold text-slate-900 mt-1">
-                  My <span className="text-indigo-600">Journey</span>
+                <span className="text-xs font-bold uppercase tracking-wider" style={{ color: theme.colors.primary }}>Background</span>
+                <h2 className="text-3xl font-extrabold mt-1" style={{ color: theme.colors.text }}>
+                  My <span style={{ color: theme.colors.primary }}>Journey</span>
                 </h2>
-                <div className="flex items-center gap-2 text-xs text-slate-500 mt-3">
-                  <MapPin size={13} className="text-slate-400" />
+                <div className="flex items-center gap-2 text-xs text-slate-400 mt-3">
+                  <MapPin size={13} />
                   <span>{personal.location}</span>
                 </div>
               </div>
             </div>
 
-            <div className="md:col-span-8 space-y-5 text-slate-600 text-base leading-relaxed">
-              <p className="text-lg font-medium text-slate-800 leading-snug">
+            <div className="md:col-span-8 space-y-5 text-slate-400 text-base leading-relaxed">
+              <p className="text-lg font-medium leading-snug" style={{ color: theme.colors.text }}>
                 {about.summary}
               </p>
               {about.storyParagraphs && about.storyParagraphs.map((p, idx) => (
@@ -223,9 +260,16 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
               {about.highlights && about.highlights.length > 0 && (
                 <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {about.highlights.map((h, i) => (
-                    <div key={i} className="p-3.5 rounded-xl bg-white border border-slate-200/70 shadow-xs flex items-start gap-2.5">
-                      <Sparkles size={16} className="text-indigo-600 shrink-0 mt-0.5" />
-                      <span className="text-xs font-medium text-slate-700">{h}</span>
+                    <div
+                      key={i}
+                      className="p-3.5 rounded-xl border shadow-xs flex items-start gap-2.5"
+                      style={{
+                        backgroundColor: theme.colors.surface || 'rgba(255,255,255,0.05)',
+                        borderColor: theme.colors.border
+                      }}
+                    >
+                      <Sparkles size={16} className="shrink-0 mt-0.5" style={{ color: theme.colors.primary }} />
+                      <span className="text-xs font-medium" style={{ color: theme.colors.text }}>{h}</span>
                     </div>
                   ))}
                 </div>
@@ -402,11 +446,11 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
 
         {/* 8. Portfolio (Projects) */}
         {isEnabled('projects') && projects.length > 0 && (
-          <section id="portfolio" className="pt-8 border-t border-slate-200/70 space-y-10">
+          <section id="portfolio" className="pt-8 border-t space-y-10" style={{ borderColor: theme.colors.border }}>
             <div className="text-center max-w-xl mx-auto">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Featured Work</span>
-              <h2 className="text-4xl font-extrabold text-slate-900 mt-1">Portfolio</h2>
-              <p className="text-sm text-slate-500 mt-2">
+              <span className="text-xs font-bold uppercase tracking-wider" style={{ color: theme.colors.primary }}>Featured Work</span>
+              <h2 className="text-4xl font-extrabold mt-1" style={{ color: theme.colors.text }}>Portfolio</h2>
+              <p className="text-sm text-slate-400 mt-2">
                 Selected client solutions, web applications, and digital platforms.
               </p>
             </div>
@@ -415,10 +459,20 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
               {projects.map((proj) => (
                 <div
                   key={proj.id}
-                  className="rounded-3xl bg-white border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all overflow-hidden flex flex-col group"
+                  className="rounded-3xl border shadow-xs hover:shadow-xl transition-all overflow-hidden flex flex-col group"
+                  style={{
+                    backgroundColor: theme.colors.surface || 'rgba(255,255,255,0.05)',
+                    borderColor: theme.colors.border
+                  }}
                 >
                   {/* Mockup Preview Area */}
-                  <div className="h-60 bg-gradient-to-br from-slate-100 via-slate-50 to-indigo-50/30 p-6 flex items-center justify-center relative overflow-hidden border-b border-slate-100">
+                  <div
+                    className="h-60 p-6 flex items-center justify-center relative overflow-hidden border-b"
+                    style={{
+                      background: `linear-gradient(135deg, ${theme.colors.primary}15, transparent)`,
+                      borderColor: theme.colors.border
+                    }}
+                  >
                     {proj.imageUrl ? (
                       <img
                         src={proj.imageUrl}
@@ -429,9 +483,12 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
                       /* Realistic Device Frame Mockup */
                       <div className="w-48 h-full rounded-2xl bg-slate-900 p-2 shadow-2xl border-2 border-slate-800 flex flex-col transform group-hover:-translate-y-1 transition-transform">
                         <div className="w-12 h-1.5 bg-slate-700 rounded-full mx-auto mb-2" />
-                        <div className="flex-1 bg-gradient-to-br from-indigo-900 to-slate-950 rounded-xl p-3 text-white flex flex-col justify-end">
+                        <div
+                          className="flex-1 rounded-xl p-3 text-white flex flex-col justify-end"
+                          style={{ background: `linear-gradient(135deg, ${theme.colors.primary}, #020617)` }}
+                        >
                           <div className="text-[11px] font-bold truncate">{proj.title}</div>
-                          <div className="text-[9px] text-slate-400 truncate">{proj.role || 'Application'}</div>
+                          <div className="text-[9px] text-slate-300 truncate">{proj.role || 'Application'}</div>
                         </div>
                       </div>
                     )}
@@ -441,7 +498,7 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-1">
-                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                        <h3 className="text-xl font-bold transition-colors" style={{ color: theme.colors.text }}>
                           {proj.title}
                         </h3>
                         {proj.liveUrl && (
@@ -449,23 +506,28 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
                             href={proj.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-slate-400 hover:text-indigo-600 transition-colors p-1"
+                            className="p-1 hover:opacity-80 transition-opacity"
+                            style={{ color: theme.colors.primary }}
                           >
                             <ArrowUpRight size={18} />
                           </a>
                         )}
                       </div>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <p className="text-xs text-slate-400 leading-relaxed">
                         {proj.shortDescription}
                       </p>
                     </div>
 
-                    <div className="space-y-4 pt-2 border-t border-slate-100">
+                    <div className="space-y-4 pt-2 border-t" style={{ borderColor: theme.colors.border }}>
                       <div className="flex flex-wrap gap-1.5">
                         {proj.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600"
+                            className="text-[11px] font-medium px-2.5 py-0.5 rounded-full"
+                            style={{
+                              backgroundColor: `${theme.colors.primary}15`,
+                              color: theme.colors.primary
+                            }}
                           >
                             #{tag}
                           </span>
@@ -478,7 +540,8 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
                             href={proj.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+                            className="text-xs font-bold hover:underline flex items-center gap-1"
+                            style={{ color: theme.colors.primary }}
                           >
                             <span>Visit Project</span>
                             <ArrowUpRight size={13} />
@@ -489,7 +552,7 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
                             href={proj.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs font-semibold text-slate-500 hover:text-slate-900 flex items-center gap-1"
+                            className="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1"
                           >
                             <GithubIcon size={13} />
                             <span>Source</span>
@@ -507,22 +570,35 @@ export const CleanCreatorTemplate: React.FC<TemplateProps> = ({ data, theme }) =
         {/* 9. Let's Stay Connected Footer Card */}
         {isEnabled('contact') && (
           <section id="contact" className="pt-12">
-            <div className="rounded-3xl bg-white border border-slate-200/90 p-10 md:p-14 text-center shadow-lg relative overflow-hidden">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-5 shadow-xs">
+            <div
+              className="rounded-3xl border p-10 md:p-14 text-center shadow-lg relative overflow-hidden"
+              style={{
+                backgroundColor: theme.colors.surface || 'rgba(255,255,255,0.05)',
+                borderColor: theme.colors.border
+              }}
+            >
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-xs"
+                style={{
+                  backgroundColor: `${theme.colors.primary}20`,
+                  color: theme.colors.primary
+                }}
+              >
                 <Send size={20} />
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3" style={{ color: theme.colors.text }}>
                 Let's Stay Connected
               </h2>
 
-              <p className="text-sm text-slate-600 max-w-lg mx-auto mb-8 leading-relaxed">
+              <p className="text-sm text-slate-400 max-w-lg mx-auto mb-8 leading-relaxed">
                 {contact.socialMessage || "Interested in starting a project or sharing ideas? Drop me an email or find me across the web."}
               </p>
 
               <a
                 href={`mailto:${contact.email || personal.email}`}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-indigo-600 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                style={{ backgroundColor: theme.colors.primary }}
               >
                 <Mail size={16} />
                 <span>{contact.email || personal.email}</span>

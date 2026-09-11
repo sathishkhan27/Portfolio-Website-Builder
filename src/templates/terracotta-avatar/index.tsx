@@ -36,26 +36,31 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
 
   return (
     <div
-      className="min-h-screen font-sans bg-[#fbf9f8] text-slate-900 selection:bg-[#8e3838] selection:text-white transition-colors"
+      className="min-h-screen font-sans transition-colors"
       style={{
+        backgroundColor: theme.colors.background,
+        color: theme.colors.text,
         fontFamily: theme.typography.bodyFont || "'Plus Jakarta Sans', sans-serif"
       }}
     >
-      {/* 1. Header & Hero Terracotta Banner */}
+      {/* 1. Header & Hero Clay Banner */}
       {isEnabled('hero') && (
-        <section className="bg-[#8e3838] text-white pt-8 pb-16 px-6 relative overflow-hidden">
+        <section
+          className="text-white pt-8 pb-16 px-6 relative overflow-hidden shadow-xl"
+          style={{ backgroundColor: theme.colors.primary }}
+        >
           <div className="max-w-5xl mx-auto">
             {/* Top Bar */}
             <div className="flex items-center justify-between pb-8 border-b border-white/20">
-              <span className="font-mono text-xs uppercase tracking-widest text-rose-200">
+              <span className="font-mono text-xs uppercase tracking-widest text-white/80">
                 {personal.headline || 'Product Designer & Full Stack Developer'}
               </span>
               <nav className="hidden md:flex items-center gap-6 text-xs uppercase font-bold tracking-wider">
-                <a href="#about" className="hover:text-rose-200 transition-colors">About</a>
-                <a href="#services" className="hover:text-rose-200 transition-colors">Services</a>
-                <a href="#process" className="hover:text-rose-200 transition-colors">Process</a>
-                <a href="#projects" className="hover:text-rose-200 transition-colors">Projects</a>
-                <a href="#contact" className="hover:text-rose-200 transition-colors">Contact</a>
+                <a href="#about" className="hover:text-white/80 transition-colors">About</a>
+                <a href="#services" className="hover:text-white/80 transition-colors">Services</a>
+                <a href="#process" className="hover:text-white/80 transition-colors">Process</a>
+                <a href="#projects" className="hover:text-white/80 transition-colors">Projects</a>
+                <a href="#contact" className="hover:text-white/80 transition-colors">Contact</a>
               </nav>
             </div>
 
@@ -65,19 +70,20 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
                 <h1 className="text-5xl sm:text-7xl md:text-8xl font-black uppercase tracking-tight leading-[0.9]">
                   {personal.fullName}
                 </h1>
-                <p className="text-sm md:text-base text-rose-100 max-w-lg leading-relaxed pt-2">
+                <p className="text-sm md:text-base text-white/90 max-w-lg leading-relaxed pt-2">
                   {personal.tagline || about.summary}
                 </p>
 
                 <div className="flex items-center gap-4 pt-4">
                   <a
                     href={`mailto:${contact.email || personal.email}`}
-                    className="px-7 py-3 rounded-full bg-white text-[#8e3838] font-black text-xs uppercase tracking-wider hover:bg-rose-100 transition-all shadow-lg"
+                    className="px-7 py-3 rounded-full bg-white font-black text-xs uppercase tracking-wider hover:opacity-90 transition-all shadow-lg"
+                    style={{ color: theme.colors.primary }}
                   >
                     Hire Me
                   </a>
                   {socials && socials.length > 0 && (
-                    <div className="flex items-center gap-3 text-rose-200">
+                    <div className="flex items-center gap-3 text-white/80">
                       {socials.map((s) => (
                         <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                           {s.platform === 'github' ? <GithubIcon size={16} /> : <LinkedinIcon size={16} />}
@@ -90,7 +96,12 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
 
               {/* Center / Right 3D Character Container */}
               <div className="md:col-span-5 flex justify-center">
-                <div className="relative w-64 h-80 sm:w-72 sm:h-96 rounded-3xl bg-gradient-to-b from-[#a44545] to-[#732a2a] p-3 shadow-2xl border border-white/20 flex items-center justify-center overflow-hidden">
+                <div
+                  className="relative w-64 h-80 sm:w-72 sm:h-96 rounded-3xl p-3 shadow-2xl border border-white/20 flex items-center justify-center overflow-hidden"
+                  style={{
+                    background: `linear-gradient(180deg, ${theme.colors.primary}, ${theme.colors.secondary})`
+                  }}
+                >
                   {personal.avatarUrl ? (
                     <img
                       src={personal.avatarUrl}
@@ -101,7 +112,7 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
                     <div className="text-center p-6 space-y-2">
                       <div className="text-6xl">🎨</div>
                       <div className="font-bold text-lg uppercase">{personal.fullName}</div>
-                      <div className="text-xs text-rose-200 font-mono">{personal.location}</div>
+                      <div className="text-xs text-white/80 font-mono">{personal.location}</div>
                     </div>
                   )}
                 </div>
@@ -117,21 +128,27 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
         {isEnabled('about') && (
           <section id="about" className="space-y-8">
             <div className="flex items-center justify-between">
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#8e3838]">
+              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight" style={{ color: theme.colors.primary }}>
                 About Me
               </h2>
-              <div className="px-4 py-1.5 rounded-full bg-[#8e3838]/10 text-[#8e3838] text-xs font-bold font-mono">
+              <div
+                className="px-4 py-1.5 rounded-full text-xs font-bold font-mono"
+                style={{ backgroundColor: `${theme.colors.primary}18`, color: theme.colors.primary }}
+              >
                 "Want to know about me?" 💬
               </div>
             </div>
 
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#8e3838] text-white shadow-xl space-y-6">
+            <div
+              className="p-8 sm:p-10 rounded-3xl text-white shadow-xl space-y-6"
+              style={{ backgroundColor: theme.colors.primary }}
+            >
               <p className="text-base sm:text-lg font-medium leading-relaxed">
                 {about.summary}
               </p>
 
               {about.storyParagraphs && (
-                <div className="space-y-3 text-sm text-rose-100 leading-relaxed border-t border-white/20 pt-4">
+                <div className="space-y-3 text-sm text-white/80 leading-relaxed border-t border-white/20 pt-4">
                   {about.storyParagraphs.map((p, i) => (
                     <p key={i}>• {p}</p>
                   ))}
@@ -146,14 +163,21 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
           <section id="services" className="space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#8e3838]">
+                <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight" style={{ color: theme.colors.primary }}>
                   Services
                 </h2>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs opacity-70 mt-1">
                   End-to-end design & technical execution.
                 </p>
               </div>
-              <div className="px-4 py-2 rounded-2xl bg-amber-100 border border-amber-300 text-amber-950 text-xs font-bold shadow-xs">
+              <div
+                className="px-4 py-2 rounded-2xl text-xs font-bold shadow-xs border"
+                style={{
+                  backgroundColor: `${theme.colors.secondary || theme.colors.primary}15`,
+                  borderColor: `${theme.colors.secondary || theme.colors.primary}40`,
+                  color: theme.colors.text
+                }}
+              >
                 "Just give me the idea! I will blow your mind." 💡
               </div>
             </div>
@@ -169,9 +193,10 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
               ].map((s) => (
                 <div
                   key={s.num}
-                  className="p-6 rounded-2xl bg-[#8e3838] text-white shadow-md hover:scale-105 transition-all flex flex-col justify-between h-36"
+                  className="p-6 rounded-2xl text-white shadow-md hover:scale-105 transition-all flex flex-col justify-between h-36"
+                  style={{ backgroundColor: theme.colors.primary }}
                 >
-                  <span className="text-2xl font-black text-rose-200">{s.num}</span>
+                  <span className="text-2xl font-black text-white/80">{s.num}</span>
                   <span className="text-sm font-extrabold uppercase tracking-wide">{s.title}</span>
                 </div>
               ))}
@@ -182,10 +207,10 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
         {/* 4. Work Process Flow */}
         <section id="process" className="space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#8e3838]">
+            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight" style={{ color: theme.colors.primary }}>
               Work Process
             </h2>
-            <div className="text-xs font-mono font-bold text-slate-500">
+            <div className="text-xs font-mono font-bold opacity-60">
               My Proven 6-Step Strategy
             </div>
           </div>
@@ -194,9 +219,22 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
             {processSteps.map((step) => (
               <div
                 key={step.num}
-                className="p-4 rounded-full border-2 border-[#8e3838] text-center hover:bg-[#8e3838] hover:text-white transition-all group"
+                className="p-4 rounded-full border-2 text-center hover:text-white transition-all group cursor-pointer"
+                style={{
+                  borderColor: theme.colors.primary,
+                  backgroundColor: 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.colors.primary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
-                <div className="text-xs font-mono font-bold text-[#8e3838] group-hover:text-rose-200 mb-0.5">
+                <div
+                  className="text-xs font-mono font-bold group-hover:text-white mb-0.5"
+                  style={{ color: theme.colors.primary }}
+                >
                   {step.num}
                 </div>
                 <div className="text-xs font-bold uppercase tracking-wider">{step.title}</div>
@@ -209,18 +247,22 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
         {isEnabled('projects') && projects.length > 0 && (
           <section id="projects" className="space-y-8">
             <div className="flex items-center justify-between">
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#8e3838]">
+              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight" style={{ color: theme.colors.primary }}>
                 Projects
               </h2>
-              <span className="text-xs font-mono text-slate-500">Curated Design & Code</span>
+              <span className="text-xs font-mono opacity-60">Curated Design & Code</span>
             </div>
 
-            <div className="p-8 rounded-3xl bg-[#8e3838] shadow-2xl">
+            <div
+              className="p-8 rounded-3xl shadow-2xl"
+              style={{ backgroundColor: theme.colors.primary }}
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {projects.map((proj) => (
                   <div
                     key={proj.id}
-                    className="rounded-2xl bg-black/90 p-5 text-white border border-white/10 flex flex-col justify-between space-y-4 hover:scale-[1.02] transition-transform"
+                    className="rounded-2xl p-5 text-white border border-white/10 flex flex-col justify-between space-y-4 hover:scale-[1.02] transition-transform"
+                    style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
                   >
                     <div className="h-44 rounded-xl bg-slate-900 overflow-hidden flex items-center justify-center">
                       {proj.imageUrl ? (
@@ -234,7 +276,13 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
                       <div className="flex items-center justify-between">
                         <h3 className="text-base font-bold uppercase">{proj.title}</h3>
                         {proj.liveUrl && (
-                          <a href={proj.liveUrl} target="_blank" rel="noopener noreferrer" className="text-rose-400 hover:text-white">
+                          <a
+                            href={proj.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-white"
+                            style={{ color: theme.colors.secondary || theme.colors.accent || '#fff' }}
+                          >
                             <ArrowUpRight size={16} />
                           </a>
                         )}
@@ -251,22 +299,35 @@ export const TerracottaAvatarTemplate: React.FC<TemplateProps> = ({ data, theme 
       </main>
 
       {/* 6. Footer Signature */}
-      <footer id="contact" className="border-t border-slate-200 bg-white py-14 px-6">
+      <footer
+        id="contact"
+        className="border-t py-14 px-6"
+        style={{
+          backgroundColor: theme.colors.surface || '#ffffff',
+          borderColor: theme.colors.border || 'rgba(0,0,0,0.1)'
+        }}
+      >
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-start justify-between gap-8">
           <div>
-            <h3 className="text-2xl font-black uppercase text-[#8e3838]">{personal.fullName}</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-sm">{personal.tagline}</p>
-            <div className="text-xs font-mono text-slate-400 mt-6">
+            <h3 className="text-2xl font-black uppercase" style={{ color: theme.colors.primary }}>
+              {personal.fullName}
+            </h3>
+            <p className="text-xs opacity-70 mt-1 max-w-sm">{personal.tagline}</p>
+            <div className="text-xs font-mono opacity-50 mt-6">
               © {new Date().getFullYear()} All Rights Reserved.
             </div>
           </div>
 
           <div className="space-y-2 text-xs font-mono">
-            <div className="text-slate-500 uppercase">Contact Direct</div>
-            <a href={`mailto:${contact.email || personal.email}`} className="block font-bold text-[#8e3838] text-sm">
+            <div className="opacity-60 uppercase">Contact Direct</div>
+            <a
+              href={`mailto:${contact.email || personal.email}`}
+              className="block font-bold text-sm hover:underline"
+              style={{ color: theme.colors.primary }}
+            >
               {contact.email || personal.email}
             </a>
-            <div className="text-slate-500">{personal.location}</div>
+            <div className="opacity-60">{personal.location}</div>
           </div>
         </div>
       </footer>

@@ -34,10 +34,10 @@ export const ModernSkills: React.FC<ModernSkillsProps> = ({ data, theme }) => {
           >
             Technical Competencies
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: theme.colors.text }}>
             Skills & Core Capabilities
           </h2>
-          <p className="text-slate-400 text-base">
+          <p className="text-base opacity-80" style={{ color: theme.colors.text }}>
             Battle-tested technologies and architectural disciplines refined across real-world production environments.
           </p>
         </div>
@@ -51,7 +51,7 @@ export const ModernSkills: React.FC<ModernSkillsProps> = ({ data, theme }) => {
               className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
                 activeCategory === category.id
                   ? 'text-white shadow-lg'
-                  : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-slate-200'
+                  : 'text-slate-400 border hover:text-white'
               }`}
               style={
                 activeCategory === category.id
@@ -59,7 +59,11 @@ export const ModernSkills: React.FC<ModernSkillsProps> = ({ data, theme }) => {
                       backgroundColor: theme.colors.primary,
                       boxShadow: `0 4px 20px -2px ${theme.colors.primary}40`
                     }
-                  : {}
+                  : {
+                      backgroundColor: theme.colors.surface,
+                      borderColor: theme.colors.border,
+                      color: theme.colors.textMuted
+                    }
               }
             >
               {category.name}
@@ -80,7 +84,7 @@ export const ModernSkills: React.FC<ModernSkillsProps> = ({ data, theme }) => {
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-sm text-white">{skill.name}</span>
+                  <span className="font-semibold text-sm" style={{ color: theme.colors.text }}>{skill.name}</span>
                   {skill.years && (
                     <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">
                       {skill.years} yrs

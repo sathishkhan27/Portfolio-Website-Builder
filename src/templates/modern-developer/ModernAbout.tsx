@@ -27,10 +27,10 @@ export const ModernAbout: React.FC<ModernAboutProps> = ({ data, theme }) => {
           >
             Engineering Leadership & Philosophy
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: theme.colors.text }}>
             About Me
           </h2>
-          <p className="text-slate-400 text-base">
+          <p className="text-base opacity-80" style={{ color: theme.colors.text }}>
             {about.summary}
           </p>
         </div>
@@ -53,7 +53,7 @@ export const ModernAbout: React.FC<ModernAboutProps> = ({ data, theme }) => {
                 >
                   {metric.value}
                 </div>
-                <div className="text-sm font-semibold text-white mb-1">
+                <div className="text-sm font-semibold mb-1" style={{ color: theme.colors.text }}>
                   {metric.label}
                 </div>
                 {metric.description && (

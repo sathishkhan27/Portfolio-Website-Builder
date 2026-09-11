@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
 import { BuilderSidebar } from './BuilderSidebar';
 import { PersonalInfoEditor } from './editors/PersonalInfoEditor';
@@ -19,14 +19,25 @@ import { TemplateSelector } from './TemplateSelector';
 import { ThemeCustomizer } from './ThemeCustomizer';
 import { JsonImportExport } from './JsonImportExport';
 import { ExportPanel } from './ExportPanel';
+import { MembershipModal } from './MembershipModal';
 import { LivePreviewBar } from '../live-preview/LivePreviewBar';
 import { LivePreviewFrame } from '../live-preview/LivePreviewFrame';
-import { Eye, Edit3, Maximize2, Minimize2 } from 'lucide-react';
+import { Eye, Edit3 } from 'lucide-react';
 
 export const BuilderLayout: React.FC = () => {
   const { activeTab } = usePortfolioStore();
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview'>('editor');
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreenPreview) {
+        setIsFullscreenPreview(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreenPreview]);
 
   const renderActiveEditor = () => {
     switch (activeTab) {
@@ -61,7 +72,13 @@ export const BuilderLayout: React.FC = () => {
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         
         {/* Mobile View Toggle Bar */}
-        <div className="lg:hidden h-12 bg-slate-900 border-b border-slate-800 px-4 flex items-center justify-between">
+        <div className="lg:hidden h-12 bg-slate-900 border-b border-slate-800 px-3 sm:px-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 p-0.5 flex items-center justify-center shrink-0">
+              <img src="/logo.png" alt="WB" className="w-full h-full object-contain" />
+            </div>
+            <span className="font-extrabold text-xs text-white tracking-tight">WB</span>
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMobileTab('editor')}
@@ -100,19 +117,12 @@ export const BuilderLayout: React.FC = () => {
           {(isFullscreenPreview || mobileTab === 'preview' || window.innerWidth >= 1024) && (
             <div className="flex-1 flex flex-col h-full overflow-hidden bg-slate-950 relative">
               {/* Preview Bar with Controls */}
-              <div className="relative z-10 flex items-center justify-between">
-                <div className="flex-1">
-                  <LivePreviewBar />
-                </div>
-                <div className="h-12 bg-slate-900 border-b border-slate-800 px-3 flex items-center">
-                  <button
-                    onClick={() => setIsFullscreenPreview(!isFullscreenPreview)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-                    title={isFullscreenPreview ? 'Exit Fullscreen' : 'Fullscreen Preview'}
-                  >
-                    {isFullscreenPreview ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-                  </button>
-                </div>
+              <div className="relative z-30 w-full shrink-0">
+                <LivePreviewBar
+                  isFullscreen={isFullscreenPreview}
+                  onToggleFullscreen={() => setIsFullscreenPreview(!isFullscreenPreview)}
+                  onSwitchToEditor={() => setMobileTab('editor')}
+                />
               </div>
 
               {/* Real-time Visual Canvas */}
@@ -125,6 +135,9 @@ export const BuilderLayout: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Global Membership & Razorpay Gateway Modal */}
+      <MembershipModal />
     </div>
   );
 };

@@ -47,23 +47,26 @@ export const ModernNavbar: React.FC<ModernNavbarProps> = ({ data, theme }) => {
               {personal.avatarFallback || getInitials(personal.fullName)}
             </div>
             <div>
-              <div className="font-bold text-sm tracking-tight text-white group-hover:text-indigo-400 transition-colors">
+              <div
+                className="font-bold text-sm tracking-tight transition-colors"
+                style={{ color: theme.colors.text }}
+              >
                 {personal.fullName}
               </div>
-              <div className="text-[11px] text-slate-400 font-mono line-clamp-1 max-w-[180px]">
+              <div className="text-[11px] font-mono line-clamp-1 max-w-[180px]" style={{ color: theme.colors.textMuted }}>
                 {personal.headline.split('|')[0] || personal.headline}
               </div>
             </div>
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
+          <div className="hidden md:flex items-center gap-6 text-xs font-medium" style={{ color: theme.colors.textMuted }}>
             {activeNavItems.map((item) => (
               <a
                 key={item.key}
                 href={`#${item.key}`}
-                className="hover:text-white transition-colors capitalize tracking-wide hover:underline decoration-2 underline-offset-8"
-                style={{ textDecorationColor: theme.colors.primary }}
+                className="hover:opacity-100 transition-colors capitalize tracking-wide hover:underline decoration-2 underline-offset-8"
+                style={{ color: theme.colors.text, textDecorationColor: theme.colors.primary }}
               >
                 {item.label.split('&')[0].trim()}
               </a>
