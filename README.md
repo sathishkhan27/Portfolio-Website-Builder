@@ -196,6 +196,17 @@ npx netlify deploy --prod --dir=dist
 
 ---
 
+## 🎯 SEO Strategy & Keyword Architecture
+
+WB Studio is optimized using an end-to-end **Informational → Commercial → Transactional** search intent funnel:
+- **Transactional (BOFU)**: `create portfolio website`, `build developer portfolio`, `create portfolio online`, `resume to portfolio website`, `download portfolio template react`.
+- **Commercial (MOFU)**: `portfolio builder`, `portfolio website builder`, `best portfolio builder for developers`, `AI portfolio builder`, `developer portfolio builder`.
+- **Informational (TOFU)**: `how to create a portfolio`, `developer portfolio examples`, `what should a portfolio include`, `portfolio website examples`.
+
+👉 **Complete Matrix**: See [SEO_STRATEGY.md](file:///Users/sathish.s/Documents/GitHub/personal_repo/Portfolio-Website-Builder/SEO_STRATEGY.md) for the full **110+ keyword matrix** mapped by search intent, keyword difficulty (KD), search volume brackets, and on-page URL targets.
+
+---
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
