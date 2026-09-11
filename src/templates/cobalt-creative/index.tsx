@@ -28,29 +28,41 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
 
   return (
     <div
-      className="min-h-screen font-sans bg-[#08080a] text-white selection:bg-blue-600 selection:text-white transition-colors relative overflow-hidden"
+      className="min-h-screen font-sans transition-colors relative overflow-hidden"
       style={{
+        backgroundColor: theme.colors.background,
+        color: theme.colors.text,
         fontFamily: theme.typography.bodyFont || "'Space Grotesk', sans-serif"
       }}
     >
       {/* 1. Header Navigation */}
-      <header className="sticky top-0 z-40 bg-[#08080a]/80 backdrop-blur-md border-b border-white/5">
+      <header
+        className="sticky top-0 z-40 backdrop-blur-md border-b"
+        style={{
+          backgroundColor: `${theme.colors.background}cc`,
+          borderColor: theme.colors.border
+        }}
+      >
         <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="#hero" className="font-extrabold text-xl tracking-tighter flex items-center gap-2">
-            <span className="w-4 h-4 bg-blue-600 rounded-sm inline-block" />
+            <span
+              className="w-4 h-4 rounded-sm inline-block shadow-sm"
+              style={{ backgroundColor: theme.colors.primary }}
+            />
             <span className="uppercase">{personal.fullName.split(' ')[0]}</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-slate-400">
-            <a href="#hero" className="hover:text-blue-500 transition-colors">Home</a>
-            {isEnabled('projects') && <a href="#works" className="hover:text-blue-500 transition-colors">Works</a>}
-            {isEnabled('about') && <a href="#journey" className="hover:text-blue-500 transition-colors">Story</a>}
-            {isEnabled('contact') && <a href="#contact" className="hover:text-blue-500 transition-colors">Contact</a>}
+            <a href="#hero" className="hover:text-white transition-colors" style={{ '--hover-color': theme.colors.primary } as any}>Home</a>
+            {isEnabled('projects') && <a href="#works" className="hover:text-white transition-colors">Works</a>}
+            {isEnabled('about') && <a href="#journey" className="hover:text-white transition-colors">Story</a>}
+            {isEnabled('contact') && <a href="#contact" className="hover:text-white transition-colors">Contact</a>}
           </nav>
 
           <a
             href={`mailto:${contact.email || personal.email}`}
-            className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider transition-all"
+            className="px-5 py-2 rounded-full text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md hover:opacity-90"
+            style={{ backgroundColor: theme.colors.primary }}
           >
             Let's Talk
           </a>
@@ -72,16 +84,16 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
 
               {/* Floating Pantone Swatch Card 1 */}
               <div className="hidden sm:block absolute top-2 left-[48%] -translate-x-1/2 w-40 p-2.5 rounded-xl bg-white text-black shadow-2xl rotate-[-12deg] hover:rotate-0 transition-transform duration-300 border border-slate-200">
-                <div className="h-28 rounded-lg bg-blue-600 mb-2" />
+                <div className="h-28 rounded-lg mb-2 shadow-inner" style={{ backgroundColor: theme.colors.primary }} />
                 <div className="text-[10px] font-bold tracking-tight uppercase">PANTONE®</div>
-                <div className="text-[9px] text-slate-600 font-mono">19-4052 Classic Blue</div>
+                <div className="text-[9px] text-slate-600 font-mono">Primary Hue</div>
               </div>
 
               {/* Floating Pantone Swatch Card 2 */}
               <div className="hidden md:block absolute top-10 left-[70%] w-40 p-2.5 rounded-xl bg-white text-black shadow-2xl rotate-[8deg] hover:rotate-0 transition-transform duration-300 border border-slate-200">
-                <div className="h-28 rounded-lg bg-blue-700 mb-2" />
+                <div className="h-28 rounded-lg mb-2 shadow-inner" style={{ backgroundColor: theme.colors.secondary }} />
                 <div className="text-[10px] font-bold tracking-tight uppercase">PANTONE®</div>
-                <div className="text-[9px] text-slate-600 font-mono">286 C Electric Blue</div>
+                <div className="text-[9px] text-slate-600 font-mono">Accent Hue</div>
               </div>
             </div>
 
@@ -100,14 +112,20 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
                     className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                   />
                 ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-slate-900 to-black" />
+                  <div
+                    className="absolute inset-0 opacity-40"
+                    style={{ background: `linear-gradient(135deg, ${theme.colors.primary}66, ${theme.colors.secondary}66, transparent)` }}
+                  />
                 )}
 
                 <div className="relative z-10 flex items-center justify-between">
                   <span className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white">
                     Creative Vision
                   </span>
-                  <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                  <div
+                    className="w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"
+                    style={{ backgroundColor: theme.colors.primary }}
+                  >
                     <Play size={14} className="fill-white ml-0.5" />
                   </div>
                 </div>
@@ -128,7 +146,8 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
                 <div className="pt-2">
                   <a
                     href={`mailto:${contact.email || personal.email}`}
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300"
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider hover:opacity-80 transition-opacity"
+                    style={{ color: theme.colors.primary }}
                   >
                     <span>Start a Conversation</span>
                     <ArrowRight size={14} />
@@ -146,8 +165,11 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
               I transform ideas into compelling visuals that leave a lasting impact.
             </h2>
 
-            <div className="p-8 sm:p-10 rounded-3xl bg-blue-600 text-white shadow-2xl relative overflow-hidden">
-              <div className="text-xs font-mono uppercase tracking-widest text-blue-200 mb-6">
+            <div
+              className="p-8 sm:p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden transition-colors"
+              style={{ backgroundColor: theme.colors.primary }}
+            >
+              <div className="text-xs font-mono uppercase tracking-widest text-white/80 mb-6">
                 // Creative Expertise & Systems
               </div>
 
@@ -178,11 +200,12 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
               {projects.map((proj, idx) => (
                 <div
                   key={proj.id}
-                  className={`rounded-3xl p-8 sm:p-10 transition-all border ${
+                  className="rounded-3xl p-8 sm:p-10 transition-all border shadow-xl"
+                  style={
                     idx === 0
-                      ? 'bg-blue-600 text-white border-blue-500 shadow-2xl'
-                      : 'bg-white text-slate-900 border-slate-200 shadow-xl'
-                  }`}
+                      ? { backgroundColor: theme.colors.primary, color: '#ffffff', borderColor: theme.colors.secondary }
+                      : { backgroundColor: theme.colors.surface || '#ffffff', color: theme.mode === 'dark' ? '#ffffff' : '#0f172a', borderColor: theme.colors.border }
+                  }
                 >
                   <div className="flex items-center justify-between text-xs font-mono uppercase tracking-wider mb-6 opacity-75">
                     <span>Case Study #{idx + 1}</span>
@@ -194,7 +217,7 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
                       <h3 className="text-4xl sm:text-6xl font-black uppercase tracking-tighter">
                         {proj.title}
                       </h3>
-                      <p className={`text-sm leading-relaxed ${idx === 0 ? 'text-blue-100' : 'text-slate-600'}`}>
+                      <p className={`text-sm leading-relaxed ${idx === 0 ? 'text-white/90' : 'text-slate-400'}`}>
                         {proj.shortDescription}
                       </p>
 
@@ -202,9 +225,12 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
                         {proj.tags.map((t) => (
                           <span
                             key={t}
-                            className={`text-[11px] font-mono px-3 py-1 rounded-full ${
-                              idx === 0 ? 'bg-blue-700/80 text-white' : 'bg-slate-100 text-slate-700'
-                            }`}
+                            className="text-[11px] font-mono px-3 py-1 rounded-full"
+                            style={
+                              idx === 0
+                                ? { backgroundColor: 'rgba(255,255,255,0.2)', color: '#ffffff' }
+                                : { backgroundColor: 'rgba(255,255,255,0.1)', color: theme.colors.text }
+                            }
                           >
                             #{t}
                           </span>
@@ -217,11 +243,12 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
                             href={proj.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-md"
+                            style={
                               idx === 0
-                                ? 'bg-white text-blue-600 hover:bg-slate-100'
-                                : 'bg-slate-900 text-white hover:bg-blue-600'
-                            }`}
+                                ? { backgroundColor: '#ffffff', color: theme.colors.primary }
+                                : { backgroundColor: theme.colors.primary, color: '#ffffff' }
+                            }
                           >
                             <span>Explore Project</span>
                             <ArrowUpRight size={14} />
@@ -250,7 +277,7 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
           </section>
         )}
 
-        {/* 5. "Every masterpiece begins with a single step" (Narrative / Experience) */}
+        {/* 5. Experience / Methodology */}
         {isEnabled('about') && (
           <section id="journey" className="space-y-8 pt-8 border-t border-white/10">
             <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
@@ -258,26 +285,29 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-5 h-72 rounded-3xl bg-blue-600 p-8 flex flex-col justify-end text-white shadow-2xl">
+              <div
+                className="md:col-span-5 h-72 rounded-3xl p-8 flex flex-col justify-end text-white shadow-2xl"
+                style={{ backgroundColor: theme.colors.primary }}
+              >
                 <div className="text-3xl font-black uppercase">Execution & Precision</div>
-                <p className="text-xs text-blue-100 mt-2">Iterative methodologies built for visionary brands.</p>
+                <p className="text-xs text-white/80 mt-2">Iterative methodologies built for visionary brands.</p>
               </div>
 
               <div className="md:col-span-7 space-y-6">
                 <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 space-y-2">
-                  <div className="text-xs font-mono text-blue-400">01 // DISCOVERY & STRATEGY</div>
+                  <div className="text-xs font-mono" style={{ color: theme.colors.primary }}>01 // DISCOVERY & STRATEGY</div>
                   <h4 className="text-base font-bold text-white">Deep Research & Framing</h4>
                   <p className="text-xs text-slate-400 leading-relaxed">Understanding the core audience, market differentiators, and system requirements.</p>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 space-y-2">
-                  <div className="text-xs font-mono text-blue-400">02 // ARCHITECTURE & PROTOTYPING</div>
+                  <div className="text-xs font-mono" style={{ color: theme.colors.primary }}>02 // ARCHITECTURE & PROTOTYPING</div>
                   <h4 className="text-base font-bold text-white">High-Fidelity Engineering</h4>
                   <p className="text-xs text-slate-400 leading-relaxed">Translating strategic insights into resilient code, design tokens, and modular components.</p>
                 </div>
 
                 <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 space-y-2">
-                  <div className="text-xs font-mono text-blue-400">03 // SCALE & IMPACT</div>
+                  <div className="text-xs font-mono" style={{ color: theme.colors.primary }}>03 // SCALE & IMPACT</div>
                   <h4 className="text-base font-bold text-white">Continuous Delivery & Polishing</h4>
                   <p className="text-xs text-slate-400 leading-relaxed">Measuring performance, validating accessibility, and deploying seamless digital solutions.</p>
                 </div>
@@ -286,10 +316,13 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
           </section>
         )}
 
-        {/* 6. Footer Call-to-Action: "I'D LOVE TO HEAR FROM YOU!" */}
+        {/* 6. Footer Call-to-Action */}
         {isEnabled('contact') && (
           <section id="contact" className="pt-8">
-            <div className="rounded-3xl bg-gradient-to-b from-blue-600 to-blue-700 p-10 sm:p-14 text-white shadow-2xl space-y-8">
+            <div
+              className="rounded-3xl p-10 sm:p-14 text-white shadow-2xl space-y-8"
+              style={{ background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})` }}
+            >
               <h2 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-center">
                 I'D LOVE TO HEAR FROM YOU!
               </h2>
@@ -297,12 +330,13 @@ export const CobaltCreativeTemplate: React.FC<TemplateProps> = ({ data, theme })
               <div className="p-8 rounded-2xl bg-black/20 backdrop-blur-sm border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
                   <h3 className="text-2xl font-bold uppercase">Let's Stay Connected</h3>
-                  <p className="text-xs text-blue-100 mt-1">{contact.socialMessage || "Reach out for new projects, partnerships, or creative collaborations."}</p>
+                  <p className="text-xs text-white/80 mt-1">{contact.socialMessage || "Reach out for new projects, partnerships, or creative collaborations."}</p>
                 </div>
 
                 <a
                   href={`mailto:${contact.email || personal.email}`}
-                  className="px-8 py-3.5 rounded-full bg-white text-blue-600 font-bold text-xs uppercase tracking-wider hover:bg-slate-100 transition-all shadow-lg text-center"
+                  className="px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-slate-100 transition-all shadow-lg text-center"
+                  style={{ backgroundColor: '#ffffff', color: theme.colors.primary }}
                 >
                   {contact.email || personal.email}
                 </a>

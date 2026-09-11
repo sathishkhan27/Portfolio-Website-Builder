@@ -192,5 +192,37 @@ export const themePresets: Record<string, ThemeConfig> = {
     },
     buttonStyle: 'solid',
     backgroundPattern: 'none'
+  },
+  'nordic-frost': {
+    id: 'nordic-frost',
+    name: 'Nordic Frost (Light)',
+    mode: 'light',
+    colors: {
+      primary: '#3b82f6', // Clean Blue
+      primaryHover: '#2563eb',
+      secondary: '#06b6d4', // Cyan
+      accent: '#8b5cf6', // Violet
+      background: '#f8fafc',
+      surface: '#ffffff',
+      card: 'rgba(255, 255, 255, 0.95)',
+      border: 'rgba(226, 232, 240, 0.9)',
+      text: '#0f172a',
+      textMuted: '#64748b'
+    },
+    typography: {
+      headingFont: "'Plus Jakarta Sans', sans-serif",
+      bodyFont: "'Inter', sans-serif",
+      monoFont: "'Fira Code', monospace",
+      fontSizeScale: 'md'
+    },
+    borderRadius: 'lg',
+    spacing: 'comfortable',
+    glassmorphism: {
+      enabled: false,
+      blur: 'none',
+      opacity: 1
+    },
+    buttonStyle: 'solid',
+    backgroundPattern: 'none'
   }
 };

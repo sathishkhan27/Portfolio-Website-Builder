@@ -27,20 +27,39 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
   return (
     <div
-      className="min-h-screen font-sans bg-[#08080c] text-slate-100 selection:bg-purple-900 selection:text-purple-200 transition-colors relative overflow-hidden"
+      className="min-h-screen font-sans transition-colors relative overflow-hidden"
       style={{
+        backgroundColor: theme.colors.background,
+        color: theme.colors.text,
         fontFamily: theme.typography.bodyFont || "'Plus Jakarta Sans', sans-serif"
       }}
     >
-      {/* Ambient Neon Purple Gradient Halo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-b from-purple-900/25 via-fuchsia-950/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* Ambient Neon Gradient Halo */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full blur-3xl pointer-events-none -z-10"
+        style={{
+          background: `radial-gradient(circle, ${theme.colors.primary}40 0%, ${theme.colors.secondary}1a 100%)`
+        }}
+      />
 
       {/* 1. Header Navigation */}
-      <header className="sticky top-0 z-50 bg-[#08080c]/85 backdrop-blur-md border-b border-purple-950/40">
+      <header
+        className="sticky top-0 z-50 backdrop-blur-md border-b"
+        style={{
+          backgroundColor: `${theme.colors.background}cc`,
+          borderColor: theme.colors.border
+        }}
+      >
         <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="#hero" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-amber-400 p-0.5">
-              <div className="w-full h-full bg-[#08080c] rounded-full flex items-center justify-center text-xs font-black text-white">
+            <div
+              className="w-8 h-8 rounded-full p-0.5"
+              style={{ background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})` }}
+            >
+              <div
+                className="w-full h-full rounded-full flex items-center justify-center text-xs font-black text-white"
+                style={{ backgroundColor: theme.colors.background }}
+              >
                 {personal.fullName.charAt(0)}
               </div>
             </div>
@@ -50,10 +69,10 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
           </a>
 
           <nav className="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-400">
-            <a href="#hero" className="hover:text-purple-400 transition-colors">Home</a>
-            {isEnabled('services') && <a href="#services" className="hover:text-purple-400 transition-colors">Services</a>}
-            {isEnabled('projects') && <a href="#works" className="hover:text-purple-400 transition-colors">Works</a>}
-            {isEnabled('contact') && <a href="#contact" className="hover:text-purple-400 transition-colors">Contact</a>}
+            <a href="#hero" className="hover:text-white transition-colors">Home</a>
+            {isEnabled('services') && <a href="#services" className="hover:text-white transition-colors">Services</a>}
+            {isEnabled('projects') && <a href="#works" className="hover:text-white transition-colors">Works</a>}
+            {isEnabled('contact') && <a href="#contact" className="hover:text-white transition-colors">Contact</a>}
           </nav>
 
           {resume.downloadUrl || resume.viewUrl ? (
@@ -61,14 +80,22 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
               href={resume.downloadUrl || resume.viewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold transition-all shadow-lg shadow-purple-600/30 hover:scale-105"
+              className="px-5 py-2 rounded-full text-white text-xs font-bold transition-all shadow-lg hover:scale-105"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+                boxShadow: `0 10px 25px ${theme.colors.primary}40`
+              }}
             >
               Download CV
             </a>
           ) : (
             <a
               href={`mailto:${contact.email || personal.email}`}
-              className="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold transition-all shadow-lg shadow-purple-600/30 hover:scale-105"
+              className="px-5 py-2 rounded-full text-white text-xs font-bold transition-all shadow-lg hover:scale-105"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+                boxShadow: `0 10px 25px ${theme.colors.primary}40`
+              }}
             >
               Contact Me
             </a>
@@ -78,16 +105,28 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
       <main className="max-w-5xl mx-auto px-6 pt-12 pb-24 space-y-24">
 
-        {/* 2. Hero: "HELLO FOLKS!" + Glowing Purple Ring Portrait */}
+        {/* 2. Hero: "HELLO FOLKS!" + Glowing Neon Ring Portrait */}
         {isEnabled('hero') && (
           <section id="hero" className="text-center pt-6 space-y-8 relative">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs font-extrabold tracking-wider uppercase shadow-inner">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase border shadow-inner"
+              style={{
+                backgroundColor: `${theme.colors.primary}20`,
+                borderColor: `${theme.colors.primary}40`,
+                color: theme.colors.primary
+              }}
+            >
               HELLO FOLKS! 👋
             </div>
 
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.1] max-w-3xl mx-auto">
               I'm{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-200">
+              <span
+                className="text-transparent bg-clip-text"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`
+                }}
+              >
                 {personal.fullName}
               </span>
               .<br />
@@ -96,9 +135,18 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
             {/* Glowing Neon Ring Portrait */}
             <div className="relative inline-block my-4">
-              <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-full p-2 bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-pink-500 shadow-2xl shadow-purple-600/50 relative">
+              <div
+                className="w-52 h-52 sm:w-64 sm:h-64 rounded-full p-2 relative shadow-2xl"
+                style={{
+                  background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+                  boxShadow: `0 20px 60px ${theme.colors.primary}60`
+                }}
+              >
                 {/* Glow ring */}
-                <div className="absolute inset-0 rounded-full blur-xl bg-purple-500/40 -z-10 animate-pulse" />
+                <div
+                  className="absolute inset-0 rounded-full blur-xl -z-10 animate-pulse"
+                  style={{ backgroundColor: `${theme.colors.primary}66` }}
+                />
                 
                 {personal.avatarUrl ? (
                   <img
@@ -107,7 +155,13 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
                     className="w-full h-full rounded-full object-cover shadow-inner"
                   />
                 ) : (
-                  <div className="w-full h-full rounded-full bg-[#12121c] flex items-center justify-center text-5xl font-black text-purple-400">
+                  <div
+                    className="w-full h-full rounded-full flex items-center justify-center text-5xl font-black"
+                    style={{
+                      backgroundColor: theme.colors.surface || '#12121c',
+                      color: theme.colors.primary
+                    }}
+                  >
                     {personal.fullName.slice(0, 2).toUpperCase()}
                   </div>
                 )}
@@ -120,23 +174,47 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
             {/* 3. Stats Ribbon */}
             <div className="pt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              <div className="p-5 rounded-2xl bg-[#12121a]/80 border border-purple-900/30 text-center space-y-1">
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">325+</div>
+              <div
+                className="p-5 rounded-2xl border text-center space-y-1"
+                style={{
+                  backgroundColor: theme.colors.surface || 'rgba(18,18,26,0.8)',
+                  borderColor: theme.colors.border
+                }}
+              >
+                <div className="text-2xl sm:text-3xl font-black" style={{ color: theme.colors.primary }}>325+</div>
                 <div className="text-xs text-slate-400 font-medium">Happy Clients</div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#12121a]/80 border border-purple-900/30 text-center space-y-1">
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">{personal.yearsOfExperience}+</div>
+              <div
+                className="p-5 rounded-2xl border text-center space-y-1"
+                style={{
+                  backgroundColor: theme.colors.surface || 'rgba(18,18,26,0.8)',
+                  borderColor: theme.colors.border
+                }}
+              >
+                <div className="text-2xl sm:text-3xl font-black" style={{ color: theme.colors.primary }}>{personal.yearsOfExperience}+</div>
                 <div className="text-xs text-slate-400 font-medium">Years Exp.</div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#12121a]/80 border border-purple-900/30 text-center space-y-1">
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">{projects.length * 10 || 100}+</div>
+              <div
+                className="p-5 rounded-2xl border text-center space-y-1"
+                style={{
+                  backgroundColor: theme.colors.surface || 'rgba(18,18,26,0.8)',
+                  borderColor: theme.colors.border
+                }}
+              >
+                <div className="text-2xl sm:text-3xl font-black" style={{ color: theme.colors.primary }}>{projects.length * 10 || 100}+</div>
                 <div className="text-xs text-slate-400 font-medium">Completed Projects</div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#12121a]/80 border border-purple-900/30 text-center space-y-1">
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">25M+</div>
+              <div
+                className="p-5 rounded-2xl border text-center space-y-1"
+                style={{
+                  backgroundColor: theme.colors.surface || 'rgba(18,18,26,0.8)',
+                  borderColor: theme.colors.border
+                }}
+              >
+                <div className="text-2xl sm:text-3xl font-black" style={{ color: theme.colors.primary }}>25M+</div>
                 <div className="text-xs text-slate-400 font-medium">Projected Revenue</div>
               </div>
             </div>
@@ -145,7 +223,7 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
         {/* 4. My Services Grid with Corner Arrow */}
         {isEnabled('services') && (
-          <section id="services" className="space-y-8 pt-8 border-t border-purple-950/40">
+          <section id="services" className="space-y-8 pt-8 border-t" style={{ borderColor: theme.colors.border }}>
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -165,18 +243,31 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
               ].map((s) => (
                 <div
                   key={s.title}
-                  className="p-6 rounded-3xl bg-gradient-to-b from-[#141422]/90 to-[#0c0c16] border border-purple-900/40 hover:border-purple-500/60 transition-all space-y-4 group relative overflow-hidden"
+                  className="p-6 rounded-3xl border transition-all space-y-4 group relative overflow-hidden shadow-lg"
+                  style={{
+                    backgroundColor: theme.colors.surface || 'rgba(20,20,34,0.9)',
+                    borderColor: theme.colors.border
+                  }}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black uppercase tracking-wider text-purple-300">
+                    <span className="text-xs font-black uppercase tracking-wider" style={{ color: theme.colors.primary }}>
                       {s.title}
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-purple-950/60 text-purple-400 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center transition-colors shadow-sm"
+                      style={{
+                        backgroundColor: `${theme.colors.primary}25`,
+                        color: theme.colors.primary
+                      }}
+                    >
                       <ArrowUpRight size={15} />
                     </div>
                   </div>
 
-                  <div className="h-28 rounded-2xl bg-gradient-to-tr from-purple-950/30 via-slate-900 to-black p-4 flex items-center justify-center text-3xl">
+                  <div
+                    className="h-28 rounded-2xl p-4 flex items-center justify-center text-3xl"
+                    style={{ background: `linear-gradient(135deg, ${theme.colors.primary}20, rgba(0,0,0,0.6))` }}
+                  >
                     ✨
                   </div>
 
@@ -191,7 +282,7 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
         {/* 5. My Works (Horizontal Stacked Cards) */}
         {isEnabled('projects') && projects.length > 0 && (
-          <section id="works" className="space-y-8 pt-8 border-t border-purple-950/40">
+          <section id="works" className="space-y-8 pt-8 border-t" style={{ borderColor: theme.colors.border }}>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               My Works
             </h2>
@@ -200,9 +291,16 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
               {projects.map((proj) => (
                 <div
                   key={proj.id}
-                  className="p-6 sm:p-8 rounded-3xl bg-[#11111a]/80 border border-purple-900/30 hover:border-purple-500/50 transition-all grid grid-cols-1 md:grid-cols-12 gap-6 items-center group"
+                  className="p-6 sm:p-8 rounded-3xl border transition-all grid grid-cols-1 md:grid-cols-12 gap-6 items-center group shadow-xl"
+                  style={{
+                    backgroundColor: theme.colors.surface || 'rgba(17,17,26,0.8)',
+                    borderColor: theme.colors.border
+                  }}
                 >
-                  <div className="md:col-span-5 h-48 rounded-2xl overflow-hidden bg-black/40 flex items-center justify-center border border-purple-950/50">
+                  <div
+                    className="md:col-span-5 h-48 rounded-2xl overflow-hidden bg-black/40 flex items-center justify-center border"
+                    style={{ borderColor: theme.colors.border }}
+                  >
                     {proj.imageUrl ? (
                       <img
                         src={proj.imageUrl}
@@ -215,7 +313,7 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
                   </div>
 
                   <div className="md:col-span-7 space-y-3">
-                    <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
                       {proj.title}
                     </h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
@@ -224,7 +322,15 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
 
                     <div className="flex flex-wrap gap-2 pt-1">
                       {proj.tags.map((t) => (
-                        <span key={t} className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-purple-950/60 text-purple-300 border border-purple-900/40">
+                        <span
+                          key={t}
+                          className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border"
+                          style={{
+                            backgroundColor: `${theme.colors.primary}20`,
+                            color: theme.colors.primary,
+                            borderColor: `${theme.colors.primary}40`
+                          }}
+                        >
                           {t}
                         </span>
                       ))}
@@ -236,7 +342,8 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
                           href={proj.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold hover:opacity-80 transition-opacity"
+                          style={{ color: theme.colors.primary }}
                         >
                           <span>View Case Study</span>
                           <ArrowUpRight size={14} />
@@ -253,7 +360,13 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
         {/* 6. Footer Call-to-Action */}
         {isEnabled('contact') && (
           <section id="contact" className="pt-8">
-            <div className="rounded-3xl bg-gradient-to-r from-purple-950 via-[#181126] to-slate-950 p-10 sm:p-14 border border-purple-800/40 text-center space-y-6 shadow-2xl">
+            <div
+              className="rounded-3xl p-10 sm:p-14 border text-center space-y-6 shadow-2xl"
+              style={{
+                background: `linear-gradient(135deg, ${theme.colors.primary}25, ${theme.colors.background})`,
+                borderColor: theme.colors.border
+              }}
+            >
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
                 Let's Build Something
               </h2>
@@ -264,7 +377,11 @@ export const NeonPurpleCreatorTemplate: React.FC<TemplateProps> = ({ data, theme
               <div>
                 <a
                   href={`mailto:${contact.email || personal.email}`}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-xl shadow-purple-600/40 hover:scale-105"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-bold text-xs uppercase tracking-wider transition-all shadow-xl hover:scale-105"
+                  style={{
+                    background: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+                    boxShadow: `0 15px 35px ${theme.colors.primary}40`
+                  }}
                 >
                   <Mail size={15} />
                   <span>Get In Touch</span>

@@ -20,10 +20,47 @@ import {
 import { ThemeConfig, ColorScheme } from '../types/theme';
 import { defaultPortfolio } from '../schema/defaultPortfolio';
 import { themePresets } from '../theme-engine/themePresets';
+import { MembershipPlanId, PaymentRecord } from '../types/membership';
 
 const STORAGE_KEY_DATA = 'portfolioforge_data_v1';
 const STORAGE_KEY_TEMPLATE = 'portfolioforge_template_v1';
 const STORAGE_KEY_THEME = 'portfolioforge_theme_v1';
+const STORAGE_KEY_MEMBERSHIP = 'portfolioforge_membership_v1';
+
+interface StoredMembership {
+  isMember: boolean;
+  planId: MembershipPlanId;
+  paymentRecord: PaymentRecord | null;
+  razorpayKeyId: string;
+  useTestMode: boolean;
+}
+
+function getInitialMembership(): StoredMembership {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_MEMBERSHIP);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed) {
+        return {
+          isMember: Boolean(parsed.isMember),
+          planId: parsed.planId || 'free',
+          paymentRecord: parsed.paymentRecord || null,
+          razorpayKeyId: parsed.razorpayKeyId || '',
+          useTestMode: parsed.useTestMode !== undefined ? parsed.useTestMode : true,
+        };
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load membership from localStorage', e);
+  }
+  return {
+    isMember: false,
+    planId: 'free',
+    paymentRecord: null,
+    razorpayKeyId: '',
+    useTestMode: true,
+  };
+}
 
 function getInitialPortfolio(): PortfolioData {
   try {
@@ -68,6 +105,23 @@ interface PortfolioState {
   previewDevice: 'desktop' | 'tablet' | 'mobile';
   previewScale: number;
 
+  // Membership & Gateway
+  isMember: boolean;
+  membershipPlanId: MembershipPlanId;
+  paymentRecord: PaymentRecord | null;
+  razorpayKeyId: string;
+  useTestMode: boolean;
+  isMembershipModalOpen: boolean;
+  pendingDownloadAfterPayment: boolean;
+
+  openMembershipModal: (pendingDownload?: boolean) => void;
+  closeMembershipModal: () => void;
+  unlockMembership: (record: PaymentRecord) => void;
+  resetMembership: () => void;
+  setRazorpayKeyId: (key: string) => void;
+  setUseTestMode: (enabled: boolean) => void;
+  setPendingDownloadAfterPayment: (pending: boolean) => void;
+
   // Actions
   updatePersonal: (data: Partial<PersonalInfo>) => void;
   updateAbout: (data: Partial<AboutSectionData>) => void;
@@ -86,6 +140,7 @@ interface PortfolioState {
   reorderSections: (sections: SectionConfig[]) => void;
   setTemplate: (templateId: string) => void;
   setTheme: (theme: ThemeConfig) => void;
+  toggleThemeMode: () => void;
   updateThemeColor: (key: keyof ColorScheme, value: string) => void;
   updateThemeProperty: <K extends keyof ThemeConfig>(key: K, value: ThemeConfig[K]) => void;
   setActiveTab: (tab: string) => void;
@@ -95,13 +150,88 @@ interface PortfolioState {
   loadPortfolio: (data: PortfolioData) => void;
 }
 
-export const usePortfolioStore = create<PortfolioState>((set, get) => ({
-  portfolio: getInitialPortfolio(),
-  selectedTemplateId: getInitialTemplate(),
-  theme: getInitialTheme(),
-  activeTab: 'personal',
-  previewDevice: 'desktop',
-  previewScale: 1,
+export const usePortfolioStore = create<PortfolioState>((set, get) => {
+  const initialMembership = getInitialMembership();
+
+  return {
+    portfolio: getInitialPortfolio(),
+    selectedTemplateId: getInitialTemplate(),
+    theme: getInitialTheme(),
+    activeTab: 'personal',
+    previewDevice: 'desktop',
+    previewScale: 1,
+
+    // Membership state
+    isMember: initialMembership.isMember,
+    membershipPlanId: initialMembership.planId,
+    paymentRecord: initialMembership.paymentRecord,
+    razorpayKeyId: initialMembership.razorpayKeyId,
+    useTestMode: initialMembership.useTestMode,
+    isMembershipModalOpen: false,
+    pendingDownloadAfterPayment: false,
+
+    openMembershipModal: (pendingDownload = false) =>
+      set({ isMembershipModalOpen: true, pendingDownloadAfterPayment: pendingDownload }),
+    closeMembershipModal: () =>
+      set({ isMembershipModalOpen: false, pendingDownloadAfterPayment: false }),
+    unlockMembership: (record: PaymentRecord) => {
+      const updated = {
+        isMember: true,
+        planId: record.planId,
+        paymentRecord: record,
+        razorpayKeyId: get().razorpayKeyId,
+        useTestMode: get().useTestMode,
+      };
+      localStorage.setItem(STORAGE_KEY_MEMBERSHIP, JSON.stringify(updated));
+      set({
+        isMember: true,
+        membershipPlanId: record.planId,
+        paymentRecord: record,
+      });
+    },
+    resetMembership: () => {
+      const updated = {
+        isMember: false,
+        planId: 'free' as MembershipPlanId,
+        paymentRecord: null,
+        razorpayKeyId: get().razorpayKeyId,
+        useTestMode: get().useTestMode,
+      };
+      localStorage.setItem(STORAGE_KEY_MEMBERSHIP, JSON.stringify(updated));
+      set({
+        isMember: false,
+        membershipPlanId: 'free',
+        paymentRecord: null,
+      });
+    },
+    setRazorpayKeyId: (key: string) => {
+      set((state) => {
+        const updated = {
+          isMember: state.isMember,
+          planId: state.membershipPlanId,
+          paymentRecord: state.paymentRecord,
+          razorpayKeyId: key,
+          useTestMode: state.useTestMode,
+        };
+        localStorage.setItem(STORAGE_KEY_MEMBERSHIP, JSON.stringify(updated));
+        return { razorpayKeyId: key };
+      });
+    },
+    setUseTestMode: (enabled: boolean) => {
+      set((state) => {
+        const updated = {
+          isMember: state.isMember,
+          planId: state.membershipPlanId,
+          paymentRecord: state.paymentRecord,
+          razorpayKeyId: state.razorpayKeyId,
+          useTestMode: enabled,
+        };
+        localStorage.setItem(STORAGE_KEY_MEMBERSHIP, JSON.stringify(updated));
+        return { useTestMode: enabled };
+      });
+    },
+    setPendingDownloadAfterPayment: (pending: boolean) =>
+      set({ pendingDownloadAfterPayment: pending }),
 
   updatePersonal: (data) => {
     set((state) => {
@@ -292,8 +422,45 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
   },
 
   setTheme: (theme) => {
-    localStorage.setItem(STORAGE_KEY_THEME, JSON.stringify(theme));
-    set({ theme });
+    const cleanTheme = JSON.parse(JSON.stringify(theme));
+    localStorage.setItem(STORAGE_KEY_THEME, JSON.stringify(cleanTheme));
+    set({ theme: cleanTheme });
+  },
+
+  toggleThemeMode: () => {
+    set((state) => {
+      const isDark = state.theme.mode === 'dark';
+      const newMode = isDark ? 'light' : 'dark';
+
+      const updatedColors = isDark
+        ? {
+            ...state.theme.colors,
+            background: '#f8fafc',
+            surface: '#ffffff',
+            card: 'rgba(255, 255, 255, 0.95)',
+            border: 'rgba(226, 232, 240, 0.85)',
+            text: '#0f172a',
+            textMuted: '#64748b'
+          }
+        : {
+            ...state.theme.colors,
+            background: '#070a13',
+            surface: '#0d1322',
+            card: 'rgba(15, 23, 42, 0.8)',
+            border: 'rgba(255, 255, 255, 0.1)',
+            text: '#f8fafc',
+            textMuted: '#94a3b8'
+          };
+
+      const updatedTheme: ThemeConfig = {
+        ...state.theme,
+        mode: newMode,
+        colors: updatedColors
+      };
+
+      localStorage.setItem(STORAGE_KEY_THEME, JSON.stringify(updatedTheme));
+      return { theme: updatedTheme };
+    });
   },
 
   updateThemeColor: (key, value) => {
@@ -312,9 +479,35 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
 
   updateThemeProperty: (key, value) => {
     set((state) => {
+      let updatedColors = { ...state.theme.colors };
+      if (key === 'mode') {
+        if (value === 'light') {
+          updatedColors = {
+            ...updatedColors,
+            background: '#f8fafc',
+            surface: '#ffffff',
+            card: 'rgba(255, 255, 255, 0.95)',
+            border: 'rgba(226, 232, 240, 0.85)',
+            text: '#0f172a',
+            textMuted: '#64748b'
+          };
+        } else if (value === 'dark') {
+          updatedColors = {
+            ...updatedColors,
+            background: '#070a13',
+            surface: '#0d1322',
+            card: 'rgba(15, 23, 42, 0.8)',
+            border: 'rgba(255, 255, 255, 0.1)',
+            text: '#f8fafc',
+            textMuted: '#94a3b8'
+          };
+        }
+      }
+
       const updatedTheme = {
         ...state.theme,
-        [key]: value
+        [key]: value,
+        colors: updatedColors
       };
       localStorage.setItem(STORAGE_KEY_THEME, JSON.stringify(updatedTheme));
       return { theme: updatedTheme };
@@ -340,4 +533,4 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
     localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(data));
     set({ portfolio: data });
   }
-}));
+};});

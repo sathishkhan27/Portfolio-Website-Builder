@@ -21,6 +21,7 @@ import {
   Download,
   Sparkles
 } from 'lucide-react';
+import { MembershipBadge } from './MembershipBadge';
 
 export const BuilderSidebar: React.FC = () => {
   const { activeTab, setActiveTab, portfolio } = usePortfolioStore();
@@ -51,20 +52,22 @@ export const BuilderSidebar: React.FC = () => {
   return (
     <aside className="w-64 bg-slate-950 border-r border-slate-800/80 flex flex-col h-full shrink-0 select-none">
       
-      {/* Platform Branding Header */}
-      <div className="h-16 px-5 border-b border-slate-800/80 flex items-center justify-between">
+      {/* Platform Branding Header with Membership Status */}
+      <div className="h-16 px-4 border-b border-slate-800/80 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
-            <Sparkles size={16} />
+          <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 p-1 flex items-center justify-center shadow-lg shadow-indigo-500/10 shrink-0">
+            <img src="/logo.png" alt="WB Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="text-sm font-extrabold text-white tracking-tight flex items-center gap-1">
-              <span>Solo</span>
-              <span className="text-indigo-400">Portfolio</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 font-black">WB</span>
+              <span>Builder</span>
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">v1.0.0 Architecture</div>
+            <div className="text-[10px] text-slate-400 font-mono">Portfolio Studio</div>
           </div>
         </div>
+
+        <MembershipBadge compact />
       </div>
 
       {/* Nav List */}

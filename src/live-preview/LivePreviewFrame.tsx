@@ -23,9 +23,10 @@ export const LivePreviewFrame: React.FC = () => {
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-950 flex justify-center items-start p-0">
       <div
-        className={`transition-all duration-300 origin-top overflow-hidden bg-slate-950 ${deviceWidthMap[previewDevice]}`}
+        className={`transition-all duration-300 origin-top overflow-hidden ${deviceWidthMap[previewDevice]}`}
         style={{
           transform: previewScale !== 1 ? `scale(${previewScale})` : undefined,
+          backgroundColor: theme.colors.background
         }}
       >
         <ThemeProvider theme={theme}>

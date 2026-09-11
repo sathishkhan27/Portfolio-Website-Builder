@@ -29,10 +29,10 @@ export const ModernExperience: React.FC<ModernExperienceProps> = ({ data, theme 
           >
             Career Timeline
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight" style={{ color: theme.colors.text }}>
             Work Experience
           </h2>
-          <p className="text-slate-400 text-base">
+          <p className="text-base opacity-80" style={{ color: theme.colors.text }}>
             Track record of driving technical impact, team scaling, and system reliability across startups and enterprises.
           </p>
         </div>
@@ -61,7 +61,7 @@ export const ModernExperience: React.FC<ModernExperienceProps> = ({ data, theme 
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                   <div>
-                    <h3 className="text-lg md:text-xl font-bold text-white tracking-tight">
+                    <h3 className="text-lg md:text-xl font-bold tracking-tight" style={{ color: theme.colors.text }}>
                       {item.role}
                     </h3>
                     <div className="flex items-center gap-2 text-sm text-slate-300 font-medium">

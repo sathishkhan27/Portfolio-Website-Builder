@@ -4,9 +4,10 @@ import { getTemplateMetadataList, getTemplateComponent } from '../template-engin
 import { LayoutTemplate, Check, Sparkles, Filter, Eye, X, ArrowUpRight } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { ThemeProvider } from '../theme-engine/ThemeProvider';
+import { themePresets } from '../theme-engine/themePresets';
 
 export const TemplateSelector: React.FC = () => {
-  const { selectedTemplateId, setTemplate, portfolio, theme } = usePortfolioStore();
+  const { selectedTemplateId, setTemplate, setTheme, portfolio, theme } = usePortfolioStore();
   const templates = getTemplateMetadataList();
   const [categoryFilter, setCategoryFilter] = useState<string>('All');
   const [modalPreviewId, setModalPreviewId] = useState<string | null>(null);
@@ -429,7 +430,12 @@ export const TemplateSelector: React.FC = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setTemplate(tpl.id)}
+                    onClick={() => {
+                      setTemplate(tpl.id);
+                      if (tpl.defaultThemeId && themePresets[tpl.defaultThemeId]) {
+                        setTheme({ ...themePresets[tpl.defaultThemeId] });
+                      }
+                    }}
                   >
                     Use This Template
                   </Button>
@@ -462,6 +468,10 @@ export const TemplateSelector: React.FC = () => {
                 <button
                   onClick={() => {
                     setTemplate(modalPreviewId);
+                    const selectedTpl = templates.find((t) => t.id === modalPreviewId);
+                    if (selectedTpl?.defaultThemeId && themePresets[selectedTpl.defaultThemeId]) {
+                      setTheme({ ...themePresets[selectedTpl.defaultThemeId] });
+                    }
                     setModalPreviewId(null);
                   }}
                   className="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md"
