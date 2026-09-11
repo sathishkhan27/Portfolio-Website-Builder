@@ -1,0 +1,9 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Host
+Host: https://portfolio-website-builder-zfee.onrender.com
+
+# Sitemap
+Sitemap: https://portfolio-website-builder-zfee.onrender.com/sitemap.xml
